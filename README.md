@@ -10,5 +10,6 @@ You can run the Application.java
 
 and test by hitting these urls
 
-[http://localhost:3000//api/data/getById?id=123](http://localhost:3000//api/data/getById?id=123)
-[http://localhost:3000//api/data/getById?id=create table abcd](http://localhost:3000//api/data/getById?id=create table abcd)
+* [http://localhost:3000//api/data/getById?id=123](http://localhost:3000//api/data/getById?id=123)
+
+* [http://localhost:3000//api/data/getById?id=create table abcd](http://localhost:3000//api/data/getById?id=create table abcd)
