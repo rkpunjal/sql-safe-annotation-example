@@ -1,4 +1,4 @@
-# sql-safe-annotation-example
+# Custom Annotation for SQL Injection Safe Parameters
 This is a Sample Project to show the usage of a Custom annotation for validating if field-values or parameter-values are SQL-Injection safe
 
 A usage could look something like this
