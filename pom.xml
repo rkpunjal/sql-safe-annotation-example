@@ -5,7 +5,13 @@
 
     <groupId>com.rk.example.sqlsafe</groupId>
     <artifactId>sql-safe-annotation-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
+    <developers>
+        <developer>
+            <name>Ramakrishna Punjal</name>
+            <email>rkpunjal@gmail.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>1.8</java.version>
