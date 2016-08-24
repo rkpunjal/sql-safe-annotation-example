@@ -28,7 +28,6 @@ public class SQLInjectionSafeConstraintValidator implements ConstraintValidator<
             "(?i)(.*)(\\b)+ROLLBACK(\\b)+\\s.*(.*)",
             "(?i)(.*)(\\b)+KILL(\\b)+\\s.*(.*)",
             "(?i)(.*)(\\b)+DROP(\\b)+\\s.*(.*)",
-////            "(?i)(.*)(\\b)+DROP(\b)+\\s.*[" + SQL_TYPES + "]\\s.*(.*)",
             "(?i)(.*)(\\b)+CREATE(\\b)+(\\s)*(" + SQL_TYPES.replaceAll(",", "|") + ")(\\b)+\\s.*(.*)",
             "(?i)(.*)(\\b)+ALTER(\\b)+(\\s)*(" + SQL_TYPES.replaceAll(",", "|") + ")(\\b)+\\s.*(.*)",
             "(?i)(.*)(\\b)+TRUNCATE(\\b)+(\\s)*(" + SQL_TYPES.replaceAll(",", "|") + ")(\\b)+\\s.*(.*)",
@@ -37,6 +36,9 @@ public class SQLInjectionSafeConstraintValidator implements ConstraintValidator<
             "(?i)(.*)(\\b)+RELEASE(\\b)+(\\s)*(" + SQL_TYPES.replaceAll(",", "|") + ")(\\b)+\\s.*(.*)",
             "(?i)(.*)(\\b)+DESC(\\b)+(\\w)*\\s.*(.*)",
             "(?i)(.*)(\\b)+DESCRIBE(\\b)+(\\w)*\\s.*(.*)",
+            "(.*)(/\\*|\\*/|;){1,}(.*)",
+            "(.*)(-){2,}(.*)",
+
     };
 
     // pre-build the Pattern objects for faster validation
@@ -65,8 +67,11 @@ public class SQLInjectionSafeConstraintValidator implements ConstraintValidator<
 
     private boolean matches(Pattern pattern, String dataString){
         Matcher matcher = pattern.matcher(dataString);
-        boolean matchResult = matcher.matches();
-        return matchResult;
+        return matcher.matches();
+
+//        System.out.println("pattern : " + pattern.toString());
+//        System.out.println("dataString : " + dataString);
+//        System.out.println("matchResult : " + matchResult);
     }
 
     private static List<Pattern> getValidationPatterns(){

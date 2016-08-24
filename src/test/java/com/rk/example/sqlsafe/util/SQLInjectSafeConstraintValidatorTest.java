@@ -33,6 +33,23 @@ public class SQLInjectSafeConstraintValidatorTest {
             testUnSafeWithAllVariations(maliciousPart);
         }
 
+
+        String[] sqlDisruptiveDataSamples = {
+                "--",
+                "/*",
+                "*/",
+                ";",
+                "someone -- abcd",
+                "abcd /* adf */ adf",
+        };
+
+
+        for(String desruptivePart : sqlDisruptiveDataSamples){
+            testForPurelyUnSafeDataWithAllVariations(desruptivePart);
+        }
+
+
+
     }
 
     @Test
@@ -94,6 +111,41 @@ public class SQLInjectSafeConstraintValidatorTest {
         safeData = removeAllSpaces(maliciousData);
         assertTrue("Failed to qualify this as SQL-injection safe data : " + safeData,
                 safeConstraintValidator.isValid(safeData, null)
+        );
+
+    }
+    private void testForPurelyUnSafeDataWithAllVariations(String maliciousPart) {
+        String prefix = "some-Data-prefix";
+        String suffix = "some-Data-suffix";
+        String space = " ";
+
+        String maliciousData = "";
+        String safeData = "";
+
+        maliciousData = prefix + space + maliciousPart + space + suffix;
+
+        assertFalse("Failed to detect SQL-unsafe data : " + maliciousData,
+                safeConstraintValidator.isValid(maliciousData, null)
+        );
+
+        assertFalse("Failed to detect SQL-unsafe data : " + maliciousData.toUpperCase(),
+                safeConstraintValidator.isValid(maliciousData.toUpperCase(), null)
+        );
+
+        assertFalse("Failed to detect SQL-unsafe data : " + removeAllSpaces(maliciousData),
+                safeConstraintValidator.isValid(removeAllSpaces(maliciousData), null)
+        );
+
+        prefix = "";
+        suffix = "";
+        maliciousData = prefix + maliciousPart + suffix;
+
+        assertFalse("Failed to detect SQL-unsafe data : " + maliciousData,
+                safeConstraintValidator.isValid(maliciousData, null)
+        );
+
+        assertFalse("Failed to detect SQL-unsafe data : " + removeAllSpaces(maliciousData),
+                safeConstraintValidator.isValid(removeAllSpaces(maliciousData), null)
         );
 
     }
