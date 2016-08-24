@@ -68,10 +68,6 @@ public class SQLInjectionSafeConstraintValidator implements ConstraintValidator<
     private boolean matches(Pattern pattern, String dataString){
         Matcher matcher = pattern.matcher(dataString);
         return matcher.matches();
-
-//        System.out.println("pattern : " + pattern.toString());
-//        System.out.println("dataString : " + dataString);
-//        System.out.println("matchResult : " + matchResult);
     }
 
     private static List<Pattern> getValidationPatterns(){
